@@ -1,7 +1,7 @@
-import 'package:cinemapedia/presentation/providers/movies/movies_providers.dart';
-import 'package:cinemapedia/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:cinemapedia/presentation/widgets/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:cinemapedia/presentation/providers/providers.dart';
 
 class HomeScreen extends StatelessWidget {
 
@@ -12,9 +12,10 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  const Scaffold(
-      body:  Center(
-        child: _HomeView(),
-      ),
+      body:   _HomeView(),
+      bottomNavigationBar: CustomBottonNavigation(),
+      // bottomNavigationBar : Placeholder( 
+      // ),
     );
   }
 }
@@ -36,28 +37,31 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
   @override 
   Widget build(BuildContext context) {
-    
     final nowPlayingMovies = ref.watch( nowPlayingMoviesProvider  ) ;
-
-    if ( nowPlayingMovies.length ==0  ) {
-      return CircularProgressIndicator();
+    final slideShowMovies = ref.watch( moviesSlideshowProvider  ) ;
+    if ( slideShowMovies.isEmpty ) {
+      return  const CircularProgressIndicator();
     }
-
     return  Column(
       children: [
-        CustomAppbar(),
-        MoviesSlideShow(movies: nowPlayingMovies)
-        // Expanded(
-        //   child: ListView.builder(
-        //     itemCount:  nowPlayingMovies.length,
-        //     itemBuilder: (context , index){
-        //       final movie = nowPlayingMovies[index] ;
-        //       return ListTile( 
-        //         title: Text( movie.title ),
-        //       );
-        //     } ,
-        //   ),
-        // )
+        const CustomAppbar(),
+        MoviesSlideShow(movies: slideShowMovies),
+        MovieHorizontalListView( 
+          movies: nowPlayingMovies, 
+          title: 'En cines',
+          subTitle: 'Lunes 20',
+          loadNextPage: () {
+              ref.read( nowPlayingMoviesProvider.notifier ).loadNextPage();
+          },
+        ),
+        MovieHorizontalListView( 
+          movies: nowPlayingMovies, 
+          title: 'En cines',
+          subTitle: 'Lunes 20',
+          loadNextPage: () {
+              ref.read( nowPlayingMoviesProvider.notifier ).loadNextPage();
+          },
+        ),
       ],
     );
   }
