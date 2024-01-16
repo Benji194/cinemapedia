@@ -31,12 +31,20 @@ class _HomeViewState extends ConsumerState<_HomeView> {
   void initState() {
     super.initState();
     ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+    ref.read(popularMoviesProvider.notifier).loadNextPage();
+
+    ref.read(upcomingMoviesProvider.notifier).loadNextPage();
+    ref.read(topRatedMoviesProvider.notifier).loadNextPage();
   }
 
   @override
   Widget build(BuildContext context) {
-    final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
     final slideShowMovies = ref.watch(moviesSlideshowProvider);
+    final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
+    final popularMovies = ref.watch(popularMoviesProvider);
+
+    final upcomingMovies = ref.watch(upcomingMoviesProvider);
+    final topRatedMovies = ref.watch(topRatedMoviesProvider);
     if (slideShowMovies.isEmpty) {
       return const CircularProgressIndicator();
     }
@@ -58,33 +66,33 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                 MovieHorizontalListView(
                   movies: nowPlayingMovies,
                   title: 'En cines',
-                  subTitle: 'Lunes 20',
+                  subTitle: '',
                   loadNextPage: () {
                     ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
                   },
                 ),
                 MovieHorizontalListView(
-                  movies: nowPlayingMovies,
+                  movies: upcomingMovies,
                   title: 'Proximamente',
                   subTitle: 'Este mes',
                   loadNextPage: () {
-                    ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+                    ref.read(upcomingMoviesProvider.notifier).loadNextPage();
                   },
                 ),
                 MovieHorizontalListView(
-                  movies: nowPlayingMovies,
-                  title: 'Papulares',
+                  movies: popularMovies,
+                  title: 'Populares',
                   // subTitle: 'Este mes',
                   loadNextPage: () {
-                    ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+                    ref.read(popularMoviesProvider.notifier).loadNextPage();
                   },
                 ),
                 MovieHorizontalListView(
-                  movies: nowPlayingMovies,
+                  movies: topRatedMovies,
                   title: 'Mejor Calificadas',
                   subTitle: 'Desde Siempre',
                   loadNextPage: () {
-                    ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+                    ref.read(topRatedMoviesProvider.notifier).loadNextPage();
                   },
                 ),
                 const SizedBox(
