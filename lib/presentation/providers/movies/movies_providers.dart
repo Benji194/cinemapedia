@@ -6,25 +6,25 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final nowPlayingMoviesProvider =
     StateNotifierProvider<MoviesNotifier, List<Movie>>((ref) {
-  final fetchMoreMovies = ref.watch(movieRespositoryProvider).getNowPlaying;
+  final fetchMoreMovies = ref.watch(movieRepositoryProvider).getNowPlaying;
   return MoviesNotifier(fetchMoreMovies: fetchMoreMovies);
 });
 
 final popularMoviesProvider =
     StateNotifierProvider<MoviesNotifier, List<Movie>>((ref) {
-  final fetchMoreMovies = ref.watch(movieRespositoryProvider).getPopular;
+  final fetchMoreMovies = ref.watch(movieRepositoryProvider).getPopular;
   return MoviesNotifier(fetchMoreMovies: fetchMoreMovies);
 });
 
 final upcomingMoviesProvider =
     StateNotifierProvider<MoviesNotifier, List<Movie>>((ref) {
-  final fetchMoreMovies = ref.watch(movieRespositoryProvider).getUpcoming;
+  final fetchMoreMovies = ref.watch(movieRepositoryProvider).getUpcoming;
   return MoviesNotifier(fetchMoreMovies: fetchMoreMovies);
 });
 
 final topRatedMoviesProvider =
     StateNotifierProvider<MoviesNotifier, List<Movie>>((ref) {
-  final fetchMoreMovies = ref.watch(movieRespositoryProvider).getTopReated;
+  final fetchMoreMovies = ref.watch(movieRepositoryProvider).getTopReated;
   return MoviesNotifier(fetchMoreMovies: fetchMoreMovies);
 });
 

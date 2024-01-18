@@ -3,6 +3,6 @@ import 'package:cinemapedia/infraestructure/repositories/movie_repository_impl.d
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Este repositorio es inmutable
-final movieRespositoryProvider =  Provider(  (ref) {
+final movieRepositoryProvider =  Provider(  (ref) {
   return MovieRespositoryImpl( MoviedbDatasource() ) ; 
 });
